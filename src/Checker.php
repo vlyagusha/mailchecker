@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace MailChecker;
+
 class Checker implements CheckerInterface
 {
     public function check(string $email): bool

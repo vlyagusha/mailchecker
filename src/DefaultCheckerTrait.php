@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace MailChecker;
+
 trait DefaultCheckerTrait
 {
     public function checkEmail(string $email): bool

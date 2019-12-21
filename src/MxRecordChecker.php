@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace MailChecker;
+
 class MxRecordChecker extends CheckerDecorator
 {
     public function check(string $email): bool
