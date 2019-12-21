@@ -4,16 +4,33 @@ declare(strict_types=1);
 
 namespace MailChecker;
 
+use MailCheckerException;
+
 class MxRecordChecker extends CheckerDecorator
 {
-    public function check(string $email): bool
+    /**
+     * @param string $email
+     * @throws MailCheckerException
+     */
+    public function check(string $email): void
     {
-        return $this->checker->check($email) && $this->checkMxRecord($email);
+        $this->checker->check($email);
+        $this->checkMxRecord($email);
+
+        return;
     }
 
-    private function checkMxRecord(string $email): bool
+    /**
+     * @param string $email
+     * @throws MailCheckerException
+     */
+    private function checkMxRecord(string $email): void
     {
-        //todo
-        return true;
+        list(, $host) = explode('@', $email);
+        if (!checkdnsrr($host, 'MX')) {
+            throw new \MailCheckerMxRecordException('');
+        }
+
+        return;
     }
 }

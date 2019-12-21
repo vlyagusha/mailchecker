@@ -4,10 +4,20 @@ declare(strict_types=1);
 
 namespace MailChecker;
 
+use MailCheckerException;
+
 class Checker implements CheckerInterface
 {
-    public function check(string $email): bool
+    /**
+     * @param string $email
+     * @throws MailCheckerException
+     */
+    public function check(string $email): void
     {
-        return filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE) === $email;
+        if (filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE) !== $email) {
+            throw new MailCheckerException();
+        }
+
+        return;
     }
 }
