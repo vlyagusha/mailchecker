@@ -17,8 +17,23 @@ class MxRecordChecker extends CheckerDecorator
 
     private function checkMxRecord(string $email): bool
     {
-        list(, $host) = explode('@', $email);
+        if (strpos($email, '@') === false) {
+            return false;
+        }
 
-        return checkdnsrr($host, 'MX');
+        list(, $host) = explode('@', $email);
+        $mxRecords = [];
+        $mxWeight = [];
+        $result = getmxrr($host, $mxRecords, $mxWeight);
+        if ($result && $this->isMxRecordsValid($mxRecords)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function isMxRecordsValid(array $mxRecord): bool
+    {
+        return count($mxRecord) > 0 && $mxRecord[0] !== null && $mxRecord[0] !== '0.0.0.0';
     }
 }
