@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class MailCheckerException extends Exception
+class MailCheckerException extends Exception implements MailCheckerExceptionInterface
 {
 
 }

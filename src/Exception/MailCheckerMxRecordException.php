@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class MailCheckerMxRecordException extends MailCheckerException
+class MailCheckerMxRecordException extends Exception implements MailCheckerExceptionInterface
 {
 
 }
